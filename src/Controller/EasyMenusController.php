@@ -25,7 +25,6 @@ class EasyMenusController extends AppController
     {
         $query = $this->EasyMenus->find('all');
         $items = $this->paginate($query);
-        $items = $items->toArray();
 
         $this->set('easyMenus', $items);
         $this->set('_serialize', ['easyMenus']);
@@ -53,6 +52,8 @@ class EasyMenusController extends AppController
      */
     public function add()
     {
+        $parents[] = '';
+        $parents = array_merge($parents, $this->EasyMenus->find('list')->toArray());
         $easyMenu = $this->EasyMenus->newEntity();
         if ($this->request->is('post')) {
             $easyMenu = $this->EasyMenus->patchEntity($easyMenu, $this->request->data);
@@ -63,7 +64,7 @@ class EasyMenusController extends AppController
                 $this->Flash->error(__('The easy menu could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('easyMenu'));
+        $this->set(compact('easyMenu','parents'));
         $this->set('_serialize', ['easyMenu']);
     }
 
@@ -76,6 +77,7 @@ class EasyMenusController extends AppController
      */
     public function edit($id = null)
     {
+        $parents = $this->EasyMenus->find('list');
         $easyMenu = $this->EasyMenus->get($id, [
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -87,7 +89,7 @@ class EasyMenusController extends AppController
                 $this->Flash->error(__('The easy menu could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('easyMenu'));
+        $this->set(compact('easyMenu','parents'));
         $this->set('_serialize', ['easyMenu']);
     }
 

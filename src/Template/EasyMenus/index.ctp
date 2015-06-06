@@ -9,9 +9,8 @@
             <th><?= $this->Paginator->sort('name'); ?></th>
             <th><?= $this->Paginator->sort('link'); ?></th>
             <th><?= $this->Paginator->sort('parent'); ?></th>
-            <th><?= $this->Paginator->sort('params'); ?></th>
             <th><?= $this->Paginator->sort('ordering'); ?></th>
-            <th class="actions"><?= __('Actions'); ?></th>
+            <th class="actions text-right"><?= __('Actions'); ?></th>
         </tr>
         </thead>
         <tbody>
@@ -20,10 +19,9 @@
                 <td><?= $this->Number->format($easyMenu->id) ?></td>
                 <td><?= h($easyMenu->name) ?></td>
                 <td><?= h($easyMenu->link) ?></td>
-                <td><?= $this->Number->format($easyMenu->parent) ?></td>
-                <td><?= h($easyMenu->params) ?></td>
-                <td><?= $this->Number->format($easyMenu->ordering) ?></td>
-                <td class="actions">
+                <td width="1%"><?= $this->Number->format($easyMenu->parent) ?></td>
+                <td width="1%"><?= $this->Number->format($easyMenu->ordering) ?></td>
+                <td width="150"  class="actions text-right">
                     <?= $this->Html->link('', ['action' => 'view', $easyMenu->id], ['title' => __('View'), 'class' => 'btn btn-default glyphicon glyphicon-eye-open']) ?>
                     <?= $this->Html->link('', ['action' => 'edit', $easyMenu->id], ['title' => __('Edit'), 'class' => 'btn btn-default glyphicon glyphicon-pencil']) ?>
                     <?= $this->Form->postLink('', ['action' => 'delete', $easyMenu->id], ['confirm' => __('Are you sure you want to delete # {0}?', $easyMenu->id), 'title' => __('Delete'), 'class' => 'btn btn-default glyphicon glyphicon-trash']) ?>
@@ -46,44 +44,43 @@
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('id'); ?></th>
-                <th style="width:80%;"><?= $this->Paginator->sort('name'); ?></th>
+                <th><?= $this->Paginator->sort('name'); ?></th>
                 <th><?= $this->Paginator->sort('link'); ?></th>
-                <th><?= $this->Paginator->sort('parent'); ?></th>
-                <th><?= $this->Paginator->sort('params'); ?></th>
-                <th><?= $this->Paginator->sort('ordering'); ?></th>
-                <th class="actions"><?= __('Actions'); ?></th>
+                <th width="1%"><?= $this->Paginator->sort('parent'); ?></th>
+                <th width="1%"><?= $this->Paginator->sort('ordering'); ?></th>
+                <th width="150" class=" text-right actions"><?= __('Actions'); ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($menu_items as $easyMenu): ?>
+            <?php foreach ($menu_items as $easyMenu):
+                $level = 1;
+            ?>
                 <tr>
                     <td><?= $this->Form->input('ids[]',['value'=>$easyMenu->id, 'type'=>'checkbox', 'label'=>false])?></td>
                     <td><?= $easyMenu->name ?></td>
                     <td><?= $easyMenu->link ?></td>
                     <td><?= $easyMenu->parent ?></td>
-                    <td><?= $easyMenu->params ?></td>
                     <td><?= $easyMenu->ordering ?></td>
-                    <td class="actions">
+                    <td class="text-right  actions">
                     <?= $this->Html->link('', ['action' => 'view', $easyMenu->id], ['title' => __('View'), 'class' => 'btn btn-default glyphicon glyphicon-eye-open']) ?>
                     <?= $this->Html->link('', ['action' => 'edit', $easyMenu->id], ['title' => __('Edit'), 'class' => 'btn btn-default glyphicon glyphicon-pencil']) ?>
                     <?= $this->Form->postLink('', ['action' => 'delete', $easyMenu->id], ['confirm' => __('Are you sure you want to delete # {0}?', $easyMenu->id), 'title' => __('Delete'), 'class' => 'btn btn-default glyphicon glyphicon-trash']) ?>
                     </td>
                 </tr>
                 <?php if (!empty($easyMenu->has_children)): ?>
-                    <?php foreach ($sub_menu_items[$easyMenu->id] as $easySubMenu): ?>
+                    <?php foreach ($easyMenu->children as $easySubMenu):
+                        $level = 2;
+                    ?>
                         <tr>
                             <td><?= $this->Form->input('ids',['value'=>$easySubMenu->id, 'type'=>'checkbox', 'label'=>false])?></td>
-                            <td style="padding-left:<?=2*$easySubMenu->level?>%;"><?= $easySubMenu->name ?></td>
+                            <td style="padding-left:<?=1*$level?>%;"><?= $easySubMenu->name ?></td>
                             <td><?= $easySubMenu->link ?></td>
                             <td><?= $easySubMenu->parent ?></td>
-                            <td><?= $easySubMenu->params ?></td>
                             <td><?= $easySubMenu->ordering ?></td>
-                            <td class="actions">
-                                <nobr>
+                            <td class=" text-right actions">
                                     <?= $this->Html->link('', ['action' => 'view', $easySubMenu->id], ['title' => __('View'), 'class' => 'btn btn-default glyphicon glyphicon-eye-open']) ?>
                                     <?= $this->Html->link('', ['action' => 'edit', $easySubMenu->id], ['title' => __('Edit'), 'class' => 'btn btn-default glyphicon glyphicon-pencil']) ?>
                                     <?= $this->Form->postLink('', ['action' => 'delete', $easySubMenu->id], ['confirm' => __('Are you sure you want to delete # {0}?', $easySubMenu->id), 'title' => __('Delete'), 'class' => 'btn btn-default glyphicon glyphicon-trash']) ?>
-                                </nobr>
                             </td>
                         </tr>
                     <?php endforeach; ?>

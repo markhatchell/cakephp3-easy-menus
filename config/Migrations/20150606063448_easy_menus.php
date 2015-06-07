@@ -15,7 +15,7 @@ class EasyMenus extends AbstractMigration
 		    ->addColumn('link', 'char', ['limit' => 255])
 		    ->addColumn('parent', 'integer', array('null' => true))
 		    ->addColumn('params', 'string', array('null' => true))
-            ->addForeignKey('parent', 'easy_menus', 'id', array('delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'))
+            ->addIndex('params')
 		    ->addColumn('ordering', 'integer');
 	    $table->create();
     }

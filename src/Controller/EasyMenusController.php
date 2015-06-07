@@ -79,7 +79,8 @@ class EasyMenusController extends AppController
      */
     public function edit($id = null)
     {
-        $parents = $this->EasyMenus->find('list');
+        $parents[] = '';
+        $parents = array_merge($parents, $this->EasyMenus->find('list')->toArray());
         $easyMenu = $this->EasyMenus->get($id, [
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {

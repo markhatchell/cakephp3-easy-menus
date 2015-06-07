@@ -21,4 +21,12 @@ class EasyMenu extends Entity
         'params' => true,
         'ordering' => true,
     ];
+    
+    protected function _setParent($parent)
+    {
+        if (empty($parent)) {
+            $parent = null;
+        }
+        return $parent;
+    }
 }

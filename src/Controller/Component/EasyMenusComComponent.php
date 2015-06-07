@@ -28,7 +28,7 @@ class EasyMenusComComponent extends Component
         $menu_items_by_id = array();
         $sub_menu_items = array();
 
-        foreach ($items_array as $num => &$item) {
+        foreach ($items_array as $num => $item) {
             $menu_items_by_id[$item->id] = $item;
             if ($this->request->here == $item->link) {
                 $item->active = 1;
@@ -52,20 +52,22 @@ class EasyMenusComComponent extends Component
                 unset($items_array[$num]);
             }
         }
-        foreach ($sub_menu_items as $num => &$sub_menu) {
+        foreach ($sub_menu_items as $num => $sub_menu) {
             foreach($sub_menu['children'] as $sub_menu_num => $item) {
                 if ($this->request->here == $item->link) {
                     $item->active = 1;
                 }
+/*
                 if (!empty($menu_items_by_id[$item->parent]->parent)) {
                     if ($sub_menu_items[$menu_items_by_id[$item->parent]->parent]['children'][$item->parent]->id != $item->id) {
                         $sub_menu_items[$menu_items_by_id[$item->parent]->parent]['children'][$item->parent]['children'][] = $item;
                         $sub_menu_items[$menu_items_by_id[$item->parent]->parent]['children'][$item->parent]['has_children'] = true;
                     }
                 }
+*/
             }
         }
-        foreach ($items_array as $num => &$item) {
+        foreach ($items_array as $num => $item) {
             if ($this->request->here == $item->link) {
                 $item->active = 1;
             }
@@ -76,7 +78,7 @@ class EasyMenusComComponent extends Component
                 unset($items_array[$num]);
             }
         }
-        foreach($menu_items as $num => &$item) {
+        foreach($menu_items as $num => $item) {
             if (isset($sub_menu_items[$menu_items[$num]->id])) {
                 $menu_items[$num]['has_children'] = true;
                 if ($sub_menu_items[$menu_items[$num]->id]['active']) {
@@ -85,7 +87,6 @@ class EasyMenusComComponent extends Component
                 $menu_items[$num]['children'] = $sub_menu_items[$menu_items[$num]->id]['children'];
             }
         }
-
         $this->controller->set('menu_items', $menu_items);
     }
 }

@@ -68,10 +68,6 @@ class EasyMenusTable extends Table
             ->requirePresence('state', 'create')
             ->notEmpty('state');
 
-        $validator
-            ->add('level', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('level');
-
         return $validator;
     }
 }

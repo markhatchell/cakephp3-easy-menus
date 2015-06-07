@@ -13,5 +13,9 @@ class EasyMenus2 extends AbstractMigration
      */
     public function change()
     {
+        $this->table('easy_menus')
+        ->removeIndex('level')
+        ->removeColumn('level')
+        ;
     }
 }

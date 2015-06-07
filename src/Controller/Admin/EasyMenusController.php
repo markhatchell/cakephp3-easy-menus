@@ -1,5 +1,5 @@
 <?php
-namespace EasyMenus\Controller;
+namespace EasyMenus\Controller\Admin;
 
 use EasyMenus\Controller\AppController;
 
@@ -8,9 +8,17 @@ use EasyMenus\Controller\AppController;
  *
  * @property \EasyMenus\Model\Table\EasyMenusTable $EasyMenus
  */
+
+
+
 class EasyMenusController extends AppController
 {
-
+    public $paginate = [
+        'limit' => 1000,
+        'order' => [
+            'ordering' => 'asc'
+        ]
+    ];
     public function initialize() {
         parent::initialize();
     }

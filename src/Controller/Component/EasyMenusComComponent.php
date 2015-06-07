@@ -17,6 +17,18 @@ class EasyMenusComComponent extends Component
         ];
         return $states;
     }
+
+    public function getLinkTypes() {
+        $types = [
+            '1' => 'Manual',
+            '2' => 'Controller With Action',
+            '3' => 'Plugin Controller With Action',
+            '4' => 'Controller With Action and ID',
+            '5' => 'Plugin Controller With Action and ID',
+        ];
+        return $types;
+    }
+
     public function beforeRender(Event $event)
     {
         $this->controller = $event->subject();

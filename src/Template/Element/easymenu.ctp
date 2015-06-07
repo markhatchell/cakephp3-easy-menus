@@ -14,11 +14,7 @@ function print_menu($item, $view, $menu_items, $level = 0) {
                 $link_classes = 'glyphicon glyphicon-chevron-right pull-right';
             }?>
             <?php 
-                $link = $item->link;
-                if (!empty($item->paramsArray)) {
-                    $link = (Array)$item->paramsArray->link_options;
-                }
-                echo $view->Html->link(__(h($item->name)).'&nbsp;&nbsp;<small><i class="'.$link_classes.'"></i></small>', $link ,['escape'=>false]); ?>
+                echo $view->Html->link(__(h($item->name)).'&nbsp;&nbsp;<small><i class="'.$link_classes.'"></i></small>', $item->link ,['escape'=>false]); ?>
             <?php print_children($menu_items[$item->id], $view, $menu_items, $level+1); ?>
         </li>
     <?php else: ?>

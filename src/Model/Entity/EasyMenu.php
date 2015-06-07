@@ -2,6 +2,7 @@
 namespace EasyMenus\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Routing\Router;
 
 /**
  * EasyMenu Entity.
@@ -30,17 +31,7 @@ class EasyMenu extends Entity
         return $parent;
     }
 
-    protected function _setParams($params)
-    {
-        if (empty($params)) {
-            $params = [];
-        }
-        return json_encode($params);
-    }
 
-    protected function _getParamsArray()
-    {
-        $params = json_decode($this->params);
-        return $params;
-    }
+
+
 }

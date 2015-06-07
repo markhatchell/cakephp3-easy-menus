@@ -3,17 +3,18 @@ if (empty($menu_items)) {
     $menu_items = [];
 }
 
-function print_menu($item, $view, $level = 1) {
-    if ($item->has_children): ?>
-        <li class="<?php if (!empty($item->has_children)) { echo 'dropdown'; } ?> <?php if (!empty($item->active)) { echo 'active'; } ?>">
+function print_menu($item, $view, $menu_items, $level = 0) {
+    if (isset($menu_items[$item->id])): ?>
+        <li class="dropdown <?php if (!empty($item->active)) { echo 'active'; } ?>">
             <?php
-            $item_options = array();
-            if (!empty($item->has_children)) {
-                $item_options['class'] = 'dropdown-toggle';
-                $item_options['data-toggle'] = 'dropdown';
-            } ?>
-            <?= $view->Html->link(__($item->name), $item->link, $item_options); ?>
-            <?php print_children($item, $view, ($level+1)); ?>
+            $link_classes = '';
+            if ($level == 0) {
+                $link_classes = 'glyphicon glyphicon-chevron-down';
+            } else {
+                $link_classes = 'glyphicon glyphicon-chevron-right pull-right';
+            }?>
+            <?= $view->Html->link(__(h($item->name)).'&nbsp;&nbsp;<small><i class="'.$link_classes.'"></i></small>', $item->link,['escape'=>false]); ?>
+            <?php print_children($menu_items[$item->id], $view, $menu_items, $level+1); ?>
         </li>
     <?php else: ?>
         <li class="<?php if (!empty($item->active)) { echo 'active'; } ?>">
@@ -22,30 +23,12 @@ function print_menu($item, $view, $level = 1) {
     <?php endif;
 }
 
-function print_children($item, $view, $level = 2) {?>
-    <?php if ($item->has_children): ?>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-            <?php foreach ($item->children as $sub_item): ?>
-                <li data-level="<?=$level?>" class="
-                    <?php if (!empty($sub_item->active)) { echo 'active'; } ?>
-                    dropdown
-                ">
-                    <?php
-                    $item_options = array();
-                    if (!empty($sub_item->has_children)) {
-                        $item_options['class'] = 'dropdown-toggle';
-                        $item_options['data-toggle'] = 'dropdown';
-                    } ?>
-                    <?= $view->Html->link(__($sub_item->name), $sub_item->link, $item_options); ?>
-                    <?php if ($sub_item->has_children) { print_children($sub_item, $view, ($level+1)); } ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else: ?>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-            <?= $view->Html->link(__($sub_item->name), $sub_item->link); ?>
-        </ul>
-    <?php endif; ?>
+function print_children($sub_menu_items, $view, $menu_items, $level) {?>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <?php foreach ($sub_menu_items as $item):
+            print_menu($item, $view, $menu_items, $level+1);
+        endforeach; ?>
+    </ul>
 
 <?php
 }
@@ -98,8 +81,8 @@ function print_children($item, $view, $level = 2) {?>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <?php foreach ($menu_items as $item): ?>
-                    <?php print_menu($item, $this); ?>
+                <?php foreach ($menu_items[0] as $item): ?>
+                    <?php print_menu($item, $this, $menu_items); ?>
                 <?php endforeach; ?>
             </ul>
         </div><!-- /.navbar-collapse -->

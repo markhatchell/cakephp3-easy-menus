@@ -25,9 +25,10 @@ class EasyMenusController extends AppController
     {
 
         $query = $this->EasyMenus->find('all');
-        $items = $this->paginate($query);
+        $admin_menu_items = $this->paginate($query)->toArray();
+        $admin_menu_items = $this->EasyMenusCom->sortMenu($admin_menu_items);
 
-        $this->set('easyMenus', $items);
+        $this->set('admin_menu_items', $admin_menu_items);
         $this->set('_serialize', ['easyMenus']);
     }
 

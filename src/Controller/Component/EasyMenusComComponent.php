@@ -7,6 +7,16 @@ use Cake\Controller\Component;
 
 class EasyMenusComComponent extends Component
 {
+
+    public function getStates()
+    {
+        $states = [
+            '1' => 'Active',
+            '0' => 'Inactive',
+            '-1' => 'Trashed',
+        ];
+        return $states;
+    }
     public function beforeRender(Event $event)
     {
 
@@ -75,7 +85,6 @@ class EasyMenusComComponent extends Component
                 $menu_items[$num]['children'] = $sub_menu_items[$menu_items[$num]->id]['children'];
             }
         }
-        print_r($menu_items);
 
         $this->controller->set('menu_items', $menu_items);
     }

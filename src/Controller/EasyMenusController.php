@@ -23,6 +23,7 @@ class EasyMenusController extends AppController
 
     public function index()
     {
+
         $query = $this->EasyMenus->find('all');
         $items = $this->paginate($query);
 
@@ -64,6 +65,7 @@ class EasyMenusController extends AppController
                 $this->Flash->error(__('The easy menu could not be saved. Please, try again.'));
             }
         }
+        $this->set('states', $this->EasyMenusCom->getStates());
         $this->set(compact('easyMenu','parents'));
         $this->set('_serialize', ['easyMenu']);
     }

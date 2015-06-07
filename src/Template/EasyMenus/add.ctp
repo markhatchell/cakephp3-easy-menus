@@ -14,6 +14,7 @@
                 echo $this->Form->input('parent');
                 echo $this->Form->input('params');
                 echo $this->Form->input('ordering');
+                echo $this->Form->input('state');
                 ?>
         </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

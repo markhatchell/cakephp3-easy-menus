@@ -28,7 +28,7 @@ function print_children($item, $view, $level = 2) {?>
             <?php foreach ($item->children as $sub_item): ?>
                 <li data-level="<?=$level?>" class="
                     <?php if (!empty($sub_item->active)) { echo 'active'; } ?>
-                    <?php if ($level == 3) { echo 'dropdown-submenu'; } else { echo 'dropdown'; } ?>
+                    dropdown
                 ">
                     <?php
                     $item_options = array();
@@ -70,6 +70,18 @@ function print_children($item, $view, $level = 2) {?>
         });
     }
 </script>
+<style type="text/css">
+    .navbar,
+    .navbar li,
+    .navbar a {
+        -webkit-transform-style: preserve-3d;
+        -webkit-backface-visibility: hidden;
+    }
+    .dropdown-menu > li.dropdown > ul.dropdown-menu {
+        left: 150px;
+        top: -.55em;
+    }
+</style>
 <nav class="easymenus navbar navbar-fixed-top navbar-inverse">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->

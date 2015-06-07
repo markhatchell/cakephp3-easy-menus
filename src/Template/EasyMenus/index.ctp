@@ -2,7 +2,7 @@
     <ul class="nav navbar-nav">
         <li><?= $this->Html->link(__('New Menu'), ['action' => 'add']); ?></li>
     </ul>
-    <table class="table table-striped" cellpadding="0" cellspacing="0">
+    <!-- table class="table table-striped" cellpadding="0" cellspacing="0">
         <thead>
         <tr>
             <th><?= $this->Paginator->sort('id'); ?></th>
@@ -17,7 +17,7 @@
         <?php foreach ($easyMenus as $easyMenu): ?>
             <tr>
                 <td><?= $this->Number->format($easyMenu->id) ?></td>
-                <td><?= h($easyMenu->name) ?></td>
+                <td style="padding-left:<?= $easyMenu->level*1 ?>%;" ><?= h($easyMenu->name) ?></td>
                 <td><?= h($easyMenu->link) ?></td>
                 <td width="1%"><?= $this->Number->format($easyMenu->parent) ?></td>
                 <td width="1%"><?= $this->Number->format($easyMenu->ordering) ?></td>
@@ -38,7 +38,7 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
         </ul>
         <p><?= $this->Paginator->counter() ?></p>
-    </div>
+    </div -->
 
     <table class="table table-striped" cellpadding="0" cellspacing="0"  style="width:100%;">
         <thead>

@@ -1,5 +1,6 @@
 {
     "name": "markhatchell/cakephp3-easy-menus",
+    "license": "MIT",
     "description": "An easy to use table based menu plugin for CakePHP3",
     "type": "cakephp-plugin",
     "require": {

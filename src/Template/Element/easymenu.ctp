@@ -11,10 +11,9 @@ function print_menu($item, $view, $menu_items, $level = 0) {
             if ($level == 0) {
                 $link_classes = 'glyphicon glyphicon-chevron-down';
             } else {
-                $link_classes = 'glyphicon glyphicon-chevron-right pull-right';
+                $link_classes = 'glyphicon glyphicon-chevron-right ';
             }?>
-            <?php 
-                echo $view->Html->link(__(h($item->name)).'&nbsp;&nbsp;<small><i class="'.$link_classes.'"></i></small>', $item->link ,['escape'=>false]); ?>
+            <?php echo $view->Html->link(__(h($item->name)).'&nbsp;&nbsp;<small><i class="'.$link_classes.'"></i></small>', $item->link ,['escape'=>false]); ?>
             <?php print_children($menu_items[$item->id], $view, $menu_items, $level+1); ?>
         </li>
     <?php else: ?>
@@ -62,7 +61,7 @@ function print_children($sub_menu_items, $view, $menu_items, $level) {?>
         -webkit-backface-visibility: hidden;
     }
     .dropdown-menu > li.dropdown > ul.dropdown-menu {
-        left: 150px;
+        left: 98%;
         top: -.55em;
     }
 </style>

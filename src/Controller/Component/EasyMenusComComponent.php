@@ -11,6 +11,13 @@ use Abc\Controller\EasyController;
 class EasyMenusComComponent extends Component
 {
 
+    public function setupForForm()
+    {
+        $this->setRoutes();
+        $this->setLinkTypes();
+        $this->setStates();
+    }
+
     public function getStates()
     {
         $states = [
@@ -19,6 +26,17 @@ class EasyMenusComComponent extends Component
             '-1' => 'Trashed',
         ];
         return $states;
+    }
+
+    public function setStates()
+    {
+        $states = $this->getStates();
+        $this->controller->set('states',$states);
+    }
+
+    public function setLinkTypes() {
+        $types = $this->getLinkTypes();
+        $this->controller->set('link_types',$types);
     }
 
     public function getLinkTypes() {
@@ -32,14 +50,19 @@ class EasyMenusComComponent extends Component
         return $types;
     }
 
-    public function beforeRender(Event $event)
-    {
-        $this->controller = $event->subject();
+    public function getMenuItems() {
         $this->EasyMenus = TableRegistry::get('EasyMenus.EasyMenus');
 
         $items_array = $this->EasyMenus->find('all')->order(['ordering'=>'ASC','parent'=>'ASC'])->toArray();
 
-        $menu_items = $this->sortMenu($items_array);
+        return $this->sortMenu($items_array);
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->controller = $event->subject();
+
+        $menu_items = $this->getMenuItems();
 
         $this->controller->set('menu_items', $menu_items);
     }
@@ -64,10 +87,8 @@ class EasyMenusComComponent extends Component
 
 
 
-    public function getRoutes() {
-        $routes = array(
-            '0' => '[Select a route]'
-        );
+    public function setRoutes() {
+
         $routes_info = array();
         $all_routes = Router::routes();
         $ignore = array(
@@ -81,6 +102,7 @@ class EasyMenusComComponent extends Component
             }
         }
 
-        return compact('routes','routes_info');
+        $this->controller->set('routes', $routes);
+        $this->controller->set('routes_info', $routes_info);
     }
 }

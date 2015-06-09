@@ -61,8 +61,7 @@ class EasyMenusController extends AppController
      */
     public function add()
     {
-        $parents[] = '';
-        $parents = array_merge($parents, $this->EasyMenus->find('list')->toArray());
+        $parents = $this->EasyMenus->find('list')->toArray();
         $easyMenu = $this->EasyMenus->newEntity();
         if ($this->request->is('post')) {
             $easyMenu = $this->EasyMenus->patchEntity($easyMenu, $this->request->data);
@@ -73,8 +72,7 @@ class EasyMenusController extends AppController
                 $this->Flash->error(__('The easy menu could not be saved. Please, try again.'));
             }
         }
-        $this->set('link_types', $this->EasyMenusCom->getLinkTypes());
-        $this->set('states', $this->EasyMenusCom->getStates());
+        $this->EasyMenusCom->setupForForm();
         $this->set(compact('easyMenu','parents'));
     }
 
@@ -87,8 +85,7 @@ class EasyMenusController extends AppController
      */
     public function edit($id = null)
     {
-        $parents[] = '';
-        $parents = array_merge($parents, $this->EasyMenus->find('list')->toArray());
+        $parents = $this->EasyMenus->find('list')->where(['id !='=>$id, 'OR' => ['parent !='=>$id, 'parent is'=>null] ])->toArray();
         $easyMenu = $this->EasyMenus->get($id, [
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -100,11 +97,7 @@ class EasyMenusController extends AppController
                 $this->Flash->error(__('The easy menu could not be saved. Please, try again.'));
             }
         }
-        $route_info = $this->EasyMenusCom->getRoutes();
-        $this->set('states', $this->EasyMenusCom->getStates());
-        $this->set('link_types', $this->EasyMenusCom->getLinkTypes());
-        $this->set('routes', $route_info['routes']);
-        $this->set('routes_info', $route_info['routes_info']);
+        $this->EasyMenusCom->setupForForm();
         $this->set(compact('easyMenu','parents'));
     }
 

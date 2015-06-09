@@ -16,6 +16,16 @@ The requirements are not included in composer as you should include them directl
 - Manual or Route based link types.
 - Collects all the routes and offers them for you to use them as a menu item.
 
+### Upcoming Features
+- Showing and hiding menu items based on if the user is authenticated.
+- Regeneration of static link field in the db based on the route info stored in the params field.
+- Role based access, this will require the users of this plugin to have a role field on their user entities.
+- Class parameters for the menu to aid with styling.
+
+### Requirements
+- bootstrap - used for form layout and menu display.
+- jQuery - used for form layout and menu display.
+
 ###With composer:
 
 ```
@@ -40,16 +50,6 @@ $this->Html->script('http://code.jquery.com/jquery-2.1.4.min.js'); //jQuery 2.x 
 
 ```
 
-### Requirements
-- bootstrap - used for form layout and menu display.
-- jQuery - used for form layout and menu display.
-
-### Upcoming Features
-- Showing and hiding menu items based on if the user is authenticated.
-- Regeneration of static link field in the db based on the route info stored in the params field.
-- Role based access, this will require the users of this plugin to have a role field on their user entities.
-- Class parameters for the menu to aid with styling.
-
 ## Installation
 
 You can install this plugin into your CakePHP application using [composer](http://getcomposer.org).
@@ -65,6 +65,11 @@ composer require markhatchell/EasyMenus
 Add this to config/bootstrap.php to activate the plugin:
 ```
 Plugin::load('EasyMenus', ['bootstrap' => false, 'routes' => true]);
+```
+
+Install the table for EasyMenus:
+```
+bin/cake migrations migrate --plugin EasyMenus
 ```
 
 To display the menu:

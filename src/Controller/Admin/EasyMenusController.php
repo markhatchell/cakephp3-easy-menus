@@ -52,7 +52,6 @@ class EasyMenusController extends AppController
         $easyMenu = $this->EasyMenus->get($id, [
         ]);
         $this->set('easyMenu', $easyMenu);
-        $this->set('_serialize', ['easyMenu']);
     }
 
     /**
@@ -77,7 +76,6 @@ class EasyMenusController extends AppController
         $this->set('link_types', $this->EasyMenusCom->getLinkTypes());
         $this->set('states', $this->EasyMenusCom->getStates());
         $this->set(compact('easyMenu','parents'));
-        $this->set('_serialize', ['easyMenu']);
     }
 
     /**
@@ -102,10 +100,12 @@ class EasyMenusController extends AppController
                 $this->Flash->error(__('The easy menu could not be saved. Please, try again.'));
             }
         }
+        $route_info = $this->EasyMenusCom->getRoutes();
         $this->set('states', $this->EasyMenusCom->getStates());
         $this->set('link_types', $this->EasyMenusCom->getLinkTypes());
+        $this->set('routes', $route_info['routes']);
+        $this->set('routes_info', $route_info['routes_info']);
         $this->set(compact('easyMenu','parents'));
-        $this->set('_serialize', ['easyMenu']);
     }
 
     /**

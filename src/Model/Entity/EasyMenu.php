@@ -21,14 +21,26 @@ class EasyMenu extends Entity
         'parent' => true,
         'params' => true,
         'ordering' => true,
+        'route' => true,
+        'ordering' => true,
+        'state' => true,
+        'link_type' => true,
     ];
-    
+
     protected function _setParent($parent)
     {
         if (empty($parent)) {
             $parent = null;
         }
         return $parent;
+    }
+
+    protected function _setRoute($route)
+    {
+        if (empty($route)) {
+            $route = '';
+        }
+        return $route;
     }
 
 

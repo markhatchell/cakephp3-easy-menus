@@ -59,12 +59,19 @@ class EasyMenusTable extends Table
             
         $validator
             ->allowEmpty('link');
-            
+
         $validator
             ->add('parent', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('parent', 'create')
             ->allowEmpty('parent');
-            
+
+        $validator
+            ->allowEmpty('route');
+
+        $validator
+            ->add('link_type', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('link_type', 'create')
+            ->notEmpty('link_type');
+
         $validator
             ->allowEmpty('params');
 

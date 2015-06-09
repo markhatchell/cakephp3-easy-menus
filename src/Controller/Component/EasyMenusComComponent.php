@@ -1,9 +1,12 @@
 <?php
 namespace EasyMenus\Controller\Component;
-use EasyMenus\Model\Table\EasyMenusTable;
+use Aura\Intl\Exception;
+use Cake\Routing\Router;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 use Cake\Controller\Component;
+
+use Abc\Controller\EasyController;
 
 class EasyMenusComComponent extends Component
 {
@@ -56,5 +59,28 @@ class EasyMenusComComponent extends Component
         }
 
         return $menu_items;
+    }
+
+
+
+
+    public function getRoutes() {
+        $routes = array(
+            '0' => '[Select a route]'
+        );
+        $routes_info = array();
+        $all_routes = Router::routes();
+        $ignore = array(
+            'index\\'
+        );
+        foreach($all_routes as $route) {
+            $reflection = implode('\\',$route->defaults);
+            if (!in_array($reflection, $ignore)) {
+                $routes_info[$route->template] = json_encode($route->defaults);
+                $routes[$route->template] = $reflection.' -> '.$route->template;
+            }
+        }
+
+        return compact('routes','routes_info');
     }
 }

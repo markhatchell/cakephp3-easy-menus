@@ -85,12 +85,12 @@ use EasyMenus\Controller\Component\EasyMenusComComponent;
     }
 ```
 
-To access the menu admin UI navigate to:
-```
-/admin/EasyMenus
-```
-
 Add this to src/template/layout/default.ctp:
 ```
 <?=$this->Element('EasyMenus.easymenu')?>
+```
+
+To access the menu admin UI navigate to:
+```
+/admin/EasyMenus
 ```

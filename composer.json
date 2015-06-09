@@ -1,5 +1,5 @@
 {
-    "name": "your-name-here/EasyMenus",
+    "name": "markhatchell/EasyMenus",
     "description": "EasyMenus plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {

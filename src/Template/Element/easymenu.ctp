@@ -36,6 +36,7 @@ function print_children($sub_menu_items, $view, $menu_items, $level) {?>
 <script type="text/javascript">
     jQuery(document).ready(function(){
         setUpEasyMenus();
+        markParentAsActive();
     });
 
     function setUpEasyMenus() {
@@ -51,6 +52,18 @@ function print_children($sub_menu_items, $view, $menu_items, $level) {?>
         jQuery('.easymenus li.dropdown').mouseleave(function(event){
             jQuery(this).removeClass('open');
         });
+    }
+
+    function markParentAsActive() {
+        var keepRunning = true;
+        while(keepRunning) {
+            var currentParent = jQuery('.easymenus .active').parent().parent();
+            if ( jQuery(currentParent).get(0).tagName != 'LI' ) {
+                keepRunning = false;
+                return false;
+            }
+            jQuery(currentParent).addClass('active');
+        }
     }
 </script>
 <style type="text/css">

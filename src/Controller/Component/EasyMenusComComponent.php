@@ -55,6 +55,8 @@ class EasyMenusComComponent extends Component
 
         $items_array = $this->EasyMenus->find('all')->order(['ordering'=>'ASC','parent'=>'ASC'])->toArray();
 
+
+
         return $this->sortMenu($items_array);
     }
 
@@ -73,6 +75,10 @@ class EasyMenusComComponent extends Component
 
         foreach($items_array as $item) {
             $parentID = empty($item->parent) ? 0 : $item->parent;
+
+            if ($item->link == $this->request->here) {
+                $item->active = true;
+            }
 
             if(!isset($menu_items[$parentID])) {
                 $menu_items[$parentID] = Array();

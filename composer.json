@@ -1,6 +1,6 @@
 {
-    "name": "markhatchell/EasyMenus",
-    "description": "EasyMenus plugin for CakePHP",
+    "name": "markhatchell/cakephp3-easy-menus",
+    "description": "An easy to use table based menu plugin for CakePHP3",
     "type": "cakephp-plugin",
     "require": {
         "php": ">=5.4.16",

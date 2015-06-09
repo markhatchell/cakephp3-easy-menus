@@ -60,7 +60,7 @@ The recommended way to install composer packages is:
 composer require markhatchell/cakephp3-easy-menus
 ```
 
-## Useage
+## Usage
 
 Add this to config/bootstrap.php to activate the plugin:
 ```

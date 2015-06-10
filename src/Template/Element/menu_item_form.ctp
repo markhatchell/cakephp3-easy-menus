@@ -36,7 +36,11 @@
             var link_val = jQuery(this).val().replace(/\*$/,'');
             var link_has_id = false;
             if (link_val != 0) {
-                if ( jQuery(this).val().match(/\*$/,'') ) {
+                if (
+                    jQuery(this).val().match(/\*$/) ||
+                    jQuery(this).val().match(/:id/)
+
+                ) {
                     link_has_id = true;
                 }
 
@@ -76,8 +80,12 @@
             jQuery('.'+jQuery(this).attr('data-class')).attr('data-value', jQuery(this).val());
         });
         jQuery('.params_link_options_container .params-link-options-0').keyup(function(e){
-            var link_val = jQuery('#route').val().replace(/\*$/,'');
-            jQuery('#link').val(link_val+jQuery(this).val());
+            if (jQuery('#route').val().match(/:id/)) {
+                var link_val = jQuery('#route').val().replace(/:id/, jQuery(this).val());
+            } else {
+                var link_val = jQuery('#route').val().replace(/\*$/, jQuery(this).val());
+            }
+            jQuery('#link').val(link_val);
         });
         jQuery('.params_link_options_container .params-link-options').each(function(){
             jQuery(this).val(jQuery(this).attr('data-value'));

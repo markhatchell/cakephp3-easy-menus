@@ -60,7 +60,7 @@ You can install this plugin into your CakePHP application using [composer](http:
 The recommended way to install composer packages is:
 
 ```
-composer require markhatchell/cakephp3-easy-menus
+composer require 'markhatchell/cakephp3-easy-menus:dev-master'
 ```
 
 ## Usage

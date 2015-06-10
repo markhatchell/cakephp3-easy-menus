@@ -1,11 +1,11 @@
 <?php
 namespace EasyMenus\Controller\Component;
+
 use Aura\Intl\Exception;
 use Cake\Routing\Router;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 use Cake\Controller\Component;
-
 use Abc\Controller\EasyController;
 
 class EasyMenusComComponent extends Component
@@ -34,12 +34,29 @@ class EasyMenusComComponent extends Component
         $this->controller->set('states',$states);
     }
 
-    public function setLinkTypes() {
+    public function getSettingsListBrandDisplayTypes()
+    {
+        $types = [
+            '1' => 'Text',
+            '2' => 'Image',
+        ];
+        return $types;
+    }
+
+    public function setSettingsListBrandDisplayTypes()
+    {
+        $types = $this->getSettingsListBrandDisplayTypes();
+        $this->controller->set('settings[brand_display_types]', $types);
+    }
+
+    public function setLinkTypes()
+    {
         $types = $this->getLinkTypes();
         $this->controller->set('link_types',$types);
     }
 
-    public function getLinkTypes() {
+    public function getLinkTypes()
+    {
         $types = [
             '1' => 'Manual',
             '2' => 'Controller With Action',
@@ -50,12 +67,11 @@ class EasyMenusComComponent extends Component
         return $types;
     }
 
-    public function getMenuItems() {
+    public function getMenuItems()
+    {
         $this->EasyMenus = TableRegistry::get('EasyMenus.EasyMenus');
 
         $items_array = $this->EasyMenus->find('all')->order(['ordering'=>'ASC','parent'=>'ASC'])->toArray();
-
-
 
         return $this->sortMenu($items_array);
     }
@@ -64,9 +80,24 @@ class EasyMenusComComponent extends Component
     {
         $this->controller = $event->subject();
 
-        $menu_items = $this->getMenuItems();
+        $this->setMenuSettingsLists();
+        $this->controller->set('menu_items', $this->getMenuItems());
+        $this->controller->set('menu_settings', $this->getMenuSettings());
+    }
 
-        $this->controller->set('menu_items', $menu_items);
+    public function getMenuSettings()
+    {
+        $this->EasyMenusSettings = TableRegistry::get('EasyMenus.EasyMenusSettings');
+
+        $settings = $this->EasyMenusSettings->get(1)->toArray();
+
+
+        return $settings;
+    }
+
+    public function setMenuSettingsLists()
+    {
+        $this->controller->set('settings_brand_display_types', $this->getSettingsListBrandDisplayTypes());
     }
 
     public function sortMenu($items_array = [])
@@ -93,7 +124,8 @@ class EasyMenusComComponent extends Component
 
 
 
-    public function setRoutes() {
+    public function setRoutes()
+    {
 
         $routes_info = array();
         $all_routes = Router::routes();

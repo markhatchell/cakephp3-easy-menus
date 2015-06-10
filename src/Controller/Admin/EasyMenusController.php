@@ -1,6 +1,7 @@
 <?php
 namespace EasyMenus\Controller\Admin;
 
+use Cake\ORM\TableRegistry;
 use EasyMenus\Controller\AppController;
 
 /**
@@ -52,6 +53,29 @@ class EasyMenusController extends AppController
         $easyMenu = $this->EasyMenus->get($id, [
         ]);
         $this->set('easyMenu', $easyMenu);
+    }
+
+    /**
+     * MenuSettings method
+     *
+     * @return void
+     */
+    public function menuSettings()
+    {
+        $easyMenusSettingsTable = TableRegistry::get('EasyMenus.EasyMenusSettings');
+
+        $easyMenusSettings = $easyMenusSettingsTable->get(1);
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $easyMenusSettings = $easyMenusSettingsTable->patchEntity($easyMenusSettings, $this->request->data);
+            if ($easyMenusSettingsTable->save($easyMenusSettings )) {
+                $this->Flash->success(__('The menu settings have been saved.'));
+                return $this->redirect($this->request->here);
+            } else {
+                $this->Flash->error(__('The menu settings could not be saved. Please, try again.'));
+            }
+        }
+
+        $this->set('easyMenusSettings', $easyMenusSettings);
     }
 
     /**

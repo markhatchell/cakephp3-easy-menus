@@ -15,12 +15,15 @@ The requirements are not included in composer as you should include them directl
 - Based on Bootstrap nav.
 - Manual or Route based link types.
 - Collects all the routes and offers them for you to use them as a menu item.
+- Class parameters for the menu to aid with styling.
+- Configurable menu display options.
 
 ### Upcoming Features
+- √ Class parameters for the menu to aid with styling.
 - Showing and hiding menu items based on if the user is authenticated.
 - Regeneration of static link field in the db based on the route info stored in the params field.
 - Role based access, this will require the users of this plugin to have a role field on their user entities.
-- Class parameters for the menu to aid with styling.
+- Caching for the menus.
 
 ### Requirements
 - bootstrap - used for form layout and menu display.

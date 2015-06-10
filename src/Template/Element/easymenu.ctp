@@ -58,7 +58,12 @@ function print_children($sub_menu_items, $view, $menu_items, $level) {?>
         var keepRunning = true;
         while(keepRunning) {
             var currentParent = jQuery('.easymenus .active').parent().parent();
-            if ( jQuery(currentParent).get(0).tagName != 'LI' ) {
+            if ( typeof jQuery(currentParent).get(0) != 'undefined' ) {
+                if ( jQuery(currentParent).get(0).tagName != 'LI' ) {
+                    keepRunning = false;
+                    return false;
+                }
+            } else {
                 keepRunning = false;
                 return false;
             }
@@ -78,21 +83,31 @@ function print_children($sub_menu_items, $view, $menu_items, $level) {?>
         top: -.55em;
     }
 </style>
-<nav class="easymenus navbar navbar-fixed-top navbar-inverse">
+<nav class="easymenus navbar <?=($menu_settings['navbar_is_fixed'])?'navbar-fixed-top':''?> <?=$menu_settings['navbar_class']?>">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Brand</a>
+            <a class="navbar-brand" href="/"><?php
+                switch($menu_settings['brand_display_type']) {
+                    case 1: // text
+                        echo $menu_settings['brand_display_name'];
+                        break;
+                    case 2: // image
+                        echo $this->Html->image($menu_settings['brand_display_image'], ['title'=>$settings['brand_display_name']]);
+                        break;
+
+                }
+                ?></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <?php foreach ($menu_items[0] as $item): ?>
                     <?php print_menu($item, $this, $menu_items); ?>

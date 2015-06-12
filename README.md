@@ -1,4 +1,5 @@
 # EasyMenus plugin for CakePHP3
+[![Latest Stable Version](https://poser.pugx.org/markhatchell/cakephp3-easy-menus/v/stable)](https://packagist.org/packages/markhatchell/cakephp3-easy-menus) [![Total Downloads](https://poser.pugx.org/markhatchell/cakephp3-easy-menus/downloads)](https://packagist.org/packages/markhatchell/cakephp3-easy-menus) [![Latest Unstable Version](https://poser.pugx.org/markhatchell/cakephp3-easy-menus/v/unstable)](https://packagist.org/packages/markhatchell/cakephp3-easy-menus) [![License](https://poser.pugx.org/markhatchell/cakephp3-easy-menus/license)](https://packagist.org/packages/markhatchell/cakephp3-easy-menus)
 
 ## Notice
 This plugin is still in a development phase.

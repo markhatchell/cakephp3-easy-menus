@@ -73,6 +73,11 @@ class EasyMenusTable extends Table
             ->notEmpty('link_type');
 
         $validator
+            ->add('menu_side', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('menu_side', 'create')
+            ->notEmpty('menu_side');
+
+        $validator
             ->allowEmpty('params');
 
         $validator

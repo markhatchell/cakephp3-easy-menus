@@ -20,5 +20,6 @@ class EasyMenusSetting extends Entity
         'brand_display_image' => true,
         'navbar_class' => true,
         'navbar_is_fixed' => true,
+        'full_width' => true,
     ];
 }

@@ -38,12 +38,12 @@ class EasyMenusSettingsTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create');
-            
+
         $validator
             ->add('brand_display_type', 'valid', ['rule' => 'numeric'])
             ->requirePresence('brand_display_type', 'create')
             ->notEmpty('brand_display_type');
-            
+
         $validator
             ->requirePresence('brand_display_name', 'create')
             ->notEmpty('brand_display_name');
@@ -51,6 +51,11 @@ class EasyMenusSettingsTable extends Table
         $validator
             ->requirePresence('brand_display_image', 'create')
             ->allowEmpty('brand_display_image');
+
+        $validator
+            ->add('full_width', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('full_width', 'create')
+            ->notEmpty('full_width');
 
         $validator
             ->requirePresence('navbar_class', 'create')

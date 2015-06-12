@@ -25,6 +25,7 @@ class EasyMenu extends Entity
         'ordering' => true,
         'state' => true,
         'link_type' => true,
+        'menu_side' => true,
     ];
 
     protected function _setParent($parent)

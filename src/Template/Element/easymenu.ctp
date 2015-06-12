@@ -4,8 +4,13 @@ if (empty($menu_items)) {
 }
 
 function print_menu($item, $view, $menu_items, $level = 0) {
+    if ( $item->menu_side == 1) {
+        $view->append('EasyMenus.RightMenu');
+    }
     if (isset($menu_items[$item->id])): ?>
-        <li class="dropdown <?php if (!empty($item->active)) { echo 'active'; } ?>">
+        <li
+            class="dropdown <?php if (!empty($item->active)) { echo 'active'; } ?>"
+        >
             <?php
             $link_classes = '';
             if ($level == 0) {
@@ -13,7 +18,11 @@ function print_menu($item, $view, $menu_items, $level = 0) {
             } else {
                 $link_classes = 'glyphicon glyphicon-chevron-right ';
             }?>
-            <?php echo $view->Html->link(__(h($item->name)).'&nbsp;&nbsp;<small><i class="'.$link_classes.'"></i></small>', $item->link ,['escape'=>false]); ?>
+            <?php echo $view->Html->link(__(h($item->name)).'&nbsp;&nbsp;<small><i class="'.$link_classes.'"></i></small>', $item->link ,[
+                'escape'=>false,
+                'data-toggle'=>"dropdown",
+                'role'=>"button",
+            ]); ?>
             <?php print_children($menu_items[$item->id], $view, $menu_items, $level+1); ?>
         </li>
     <?php else: ?>
@@ -21,6 +30,9 @@ function print_menu($item, $view, $menu_items, $level = 0) {
             <?= $view->Html->link(__($item->name), $item->link); ?>
         </li>
     <?php endif;
+    if ( $item->menu_side == 1) {
+        $view->end();
+    }
 }
 
 function print_children($sub_menu_items, $view, $menu_items, $level) {?>
@@ -72,22 +84,29 @@ function print_children($sub_menu_items, $view, $menu_items, $level) {?>
     }
 </script>
 <style type="text/css">
-    .navbar,
-    .navbar li,
-    .navbar a {
+    .easymenus .navbar,
+    .easymenus .navbar li,
+    .easymenus .navbar a {
         -webkit-transform-style: preserve-3d;
         -webkit-backface-visibility: hidden;
     }
-    .dropdown-menu > li.dropdown > ul.dropdown-menu {
+    .easymenus .dropdown-menu > li.dropdown > ul.dropdown-menu {
         left: 98%;
         top: -.55em;
     }
+    .easymenus .navbar-right {
+        margin-right: 0;
+    }
 </style>
+
+
 <nav class="easymenus navbar <?=($menu_settings['navbar_is_fixed'])?'navbar-fixed-top':''?> <?=$menu_settings['navbar_class']?>">
+    <?php if (empty($menu_settings['full_width'])): ?>
     <div class="container">
+    <?php endif ?>
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -113,6 +132,13 @@ function print_children($sub_menu_items, $view, $menu_items, $level) {?>
                     <?php print_menu($item, $this, $menu_items); ?>
                 <?php endforeach; ?>
             </ul>
+        <?php if ($this->fetch('EasyMenus.RightMenu')): ?>
+            <ul class="nav navbar-nav navbar-right">
+                <?= $this->fetch('EasyMenus.RightMenu') ?>
+            </ul>
+        <?php endif; ?>
         </div><!-- /.navbar-collapse -->
+    <?php if (empty($menu_settings['full_width'])): ?>
     </div><!-- /.container-fluid -->
+    <?php endif ?>
 </nav>

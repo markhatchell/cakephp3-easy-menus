@@ -76,6 +76,12 @@ class EasyMenusController extends AppController
             }
         }
 
+        $this->EasyMenusCom->setupForForm([
+            'setRoutes' => false,
+            'setLinkTypes' => false,
+            'setMenuSides' => false,
+            'setStates' => false,
+        ]);
         $this->set('easyMenusSettings', $easyMenusSettings);
     }
 

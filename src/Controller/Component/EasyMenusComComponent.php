@@ -11,11 +11,40 @@ use Abc\Controller\EasyController;
 class EasyMenusComComponent extends Component
 {
 
-    public function setupForForm()
+    public function setupForForm($options = [])
     {
-        $this->setRoutes();
-        $this->setLinkTypes();
-        $this->setStates();
+        if ( !isset($options['setRoutes']) ) {
+            $options['setRoutes'] = true;
+        }
+        if ( !isset($options['setLinkTypes']) ) {
+            $options['setLinkTypes'] = true;
+        }
+        if ( !isset($options['setMenuSides']) ) {
+            $options['setMenuSides'] = true;
+        }
+        if ( !isset($options['setFullWidths']) ) {
+            $options['setFullWidths'] = true;
+        }
+        if ( !isset($options['setStates']) ) {
+            $options['setStates'] = true;
+        }
+
+        if ($options['setRoutes']) {
+            $this->setRoutes();
+        }
+        if ($options['setLinkTypes']) {
+            $this->setLinkTypes();
+        }
+        if ($options['setMenuSides']) {
+            $this->setMenuSides();
+        }
+        if ($options['setFullWidths']) {
+            $this->setFullWidths();
+        }
+        if ($options['setStates']) {
+            $this->setStates();
+        }
+
     }
 
     public function getStates()
@@ -34,6 +63,36 @@ class EasyMenusComComponent extends Component
         $this->controller->set('states',$states);
     }
 
+    public function getMenuSides()
+    {
+        $states = [
+            '0' => 'Left',
+            '1' => 'Right',
+        ];
+        return $states;
+    }
+
+    public function setMenuSides()
+    {
+        $list = $this->getMenuSides();
+        $this->controller->set('menuSides', $list);
+    }
+
+    public function getFullWidths()
+    {
+        $states = [
+            '0' => 'Not Full Width',
+            '1' => 'Full Width',
+        ];
+        return $states;
+    }
+
+    public function setFullWidths()
+    {
+        $list = $this->getFullWidths();
+        $this->controller->set('fullWidths', $list);
+    }
+
     public function getSettingsListBrandDisplayTypes()
     {
         $types = [
@@ -43,10 +102,11 @@ class EasyMenusComComponent extends Component
         return $types;
     }
 
+
     public function setSettingsListBrandDisplayTypes()
     {
         $types = $this->getSettingsListBrandDisplayTypes();
-        $this->controller->set('settings[brand_display_types]', $types);
+        $this->controller->set('brandDisplayTypes', $types);
     }
 
     public function setLinkTypes()
@@ -97,8 +157,10 @@ class EasyMenusComComponent extends Component
 
     public function setMenuSettingsLists()
     {
-        $this->controller->set('settings_brand_display_types', $this->getSettingsListBrandDisplayTypes());
+        $this->setSettingsListBrandDisplayTypes();
+        $this->setFullWidths();
     }
+
 
     public function sortMenu($items_array = [])
     {

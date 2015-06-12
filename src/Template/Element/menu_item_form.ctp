@@ -123,6 +123,7 @@
             ?> <div class="params_link_options_container"></div> <?php
             echo $this->Form->input('parent',['empty' => ' ']);
             echo $this->Form->input('state');
+            echo $this->Form->input('menu_side');
             echo $this->Form->input('ordering');
             ?>
         </fieldset>

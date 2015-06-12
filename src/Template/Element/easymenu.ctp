@@ -1,6 +1,6 @@
 <?php
 if (empty($menu_items)) {
-    $menu_items = [];
+    $menu_items = [0 => []];
 }
 
 function print_menu($item, $view, $menu_items, $level = 0) {
